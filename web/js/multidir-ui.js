@@ -39,11 +39,11 @@ var PageModel = function(data) {
 	
 	self.score1 = ko.computed(function() { 
 		var score = (new KutatoBuilder())
-			.add(2, [self.count("x=>x.x1()=='p'"), self.count("x=>x.x1()=='a'")])
-			.add(2, [self.count("x=>x.x2()=='p' && x.x1()=='a'"), self.count("x=>x.x2()=='a' && x.x1()=='a'")])
-			.add(2, [self.count("x=>x.x2()=='p' && x.x1()=='p'"), self.count("x=>x.x2()=='a' && x.x1()=='p'")])
-			.add(2, [self.count("x=>x.x3()=='p' && x.x2()=='a'"), self.count("x=>x.x3()=='a' && x.x2()=='a'")])
-			.add(2, [self.count("x=>x.x3()=='p' && x.x2()=='p'"), self.count("x=>x.x3()=='a' && x.x2()=='p'")])
+			.add([self.count("x=>x.x1()=='p'"), self.count("x=>x.x1()=='a'")])
+			.add([self.count("x=>x.x2()=='p' && x.x1()=='a'"), self.count("x=>x.x2()=='a' && x.x1()=='a'")])
+			.add([self.count("x=>x.x2()=='p' && x.x1()=='p'"), self.count("x=>x.x2()=='a' && x.x1()=='p'")])
+			.add([self.count("x=>x.x3()=='p' && x.x2()=='a'"), self.count("x=>x.x3()=='a' && x.x2()=='a'")])
+			.add([self.count("x=>x.x3()=='p' && x.x2()=='p'"), self.count("x=>x.x3()=='a' && x.x2()=='p'")])
 			.build()
 			.get();
 		return score;
@@ -51,11 +51,11 @@ var PageModel = function(data) {
 	
 	self.score2 = ko.computed(function() { 
 		var score = (new KutatoBuilder())
-			.add(2, [self.count("x=>x.x1()=='p'"), self.count("x=>x.x1()=='a'")])
-			.add(2, [self.count("x=>x.x2()=='p' && x.x1()=='a'"), self.count("x=>x.x2()=='a' && x.x1()=='a'")])
-			.add(2, [self.count("x=>x.x2()=='p' && x.x1()=='p'"), self.count("x=>x.x2()=='a' && x.x1()=='p'")])
-			.add(2, [self.count("x=>x.x3()=='p' && x.x1()=='a'"), self.count("x=>x.x3()=='a' && x.x1()=='a'")])
-			.add(2, [self.count("x=>x.x3()=='p' && x.x1()=='p'"), self.count("x=>x.x3()=='a' && x.x1()=='p'")])
+			.add([self.count("x=>x.x1()=='p'"), self.count("x=>x.x1()=='a'")])
+			.add([self.count("x=>x.x2()=='p' && x.x1()=='a'"), self.count("x=>x.x2()=='a' && x.x1()=='a'")])
+			.add([self.count("x=>x.x2()=='p' && x.x1()=='p'"), self.count("x=>x.x2()=='a' && x.x1()=='p'")])
+			.add([self.count("x=>x.x3()=='p' && x.x1()=='a'"), self.count("x=>x.x3()=='a' && x.x1()=='a'")])
+			.add([self.count("x=>x.x3()=='p' && x.x1()=='p'"), self.count("x=>x.x3()=='a' && x.x1()=='p'")])
 			.build()
 			.get();
 		return score;
@@ -63,11 +63,11 @@ var PageModel = function(data) {
 	
 	self.score3 = ko.computed(function() { 
 		var score = (new KutatoBuilder())
-			.add(2, [self.count("x=>x.x1()=='p' && x.x2()=='a'"), self.count("x=>x.x1()=='a' && x.x2()=='a'")])
-			.add(2, [self.count("x=>x.x1()=='p' && x.x2()=='p'"), self.count("x=>x.x1()=='a' && x.x2()=='p'")])
-			.add(2, [self.count("x=>x.x2()=='p' && x.x3()=='a'"), self.count("x=>x.x2()=='a' && x.x3()=='a'")])
-			.add(2, [self.count("x=>x.x2()=='p' && x.x3()=='p'"), self.count("x=>x.x2()=='a' && x.x3()=='p'")])
-			.add(2, [self.count("x=>x.x3()=='p'"), self.count("x=>x.x3()=='a'")])
+			.add([self.count("x=>x.x1()=='p' && x.x2()=='a'"), self.count("x=>x.x1()=='a' && x.x2()=='a'")])
+			.add([self.count("x=>x.x1()=='p' && x.x2()=='p'"), self.count("x=>x.x1()=='a' && x.x2()=='p'")])
+			.add([self.count("x=>x.x2()=='p' && x.x3()=='a'"), self.count("x=>x.x2()=='a' && x.x3()=='a'")])
+			.add([self.count("x=>x.x2()=='p' && x.x3()=='p'"), self.count("x=>x.x2()=='a' && x.x3()=='p'")])
+			.add([self.count("x=>x.x3()=='p'"), self.count("x=>x.x3()=='a'")])
 			.build()
 			.get();
 		return score;
@@ -75,12 +75,12 @@ var PageModel = function(data) {
 	
 	self.score4 = ko.computed(function() { 
 		var score = (new KutatoBuilder())
-			.add(2, [self.count("x=>x.x1()=='p' && x.x2()=='a' && x.x3()=='a'"), self.count("x=>x.x1()=='a' && x.x2()=='a' && x.x3()=='a'")])
-			.add(2, [self.count("x=>x.x1()=='p' && x.x2()=='a' && x.x3()=='p'"), self.count("x=>x.x1()=='a' && x.x2()=='a' && x.x3()=='p'")])
-			.add(2, [self.count("x=>x.x1()=='p' && x.x2()=='p' && x.x3()=='a'"), self.count("x=>x.x1()=='a' && x.x2()=='p' && x.x3()=='a'")])
-			.add(2, [self.count("x=>x.x1()=='p' && x.x2()=='p' && x.x3()=='p'"), self.count("x=>x.x1()=='a' && x.x2()=='p' && x.x3()=='p'")])
-			.add(2, [self.count("x=>x.x2()=='p'"), self.count("x=>x.x2()=='a'")])
-			.add(2, [self.count("x=>x.x3()=='p'"), self.count("x=>x.x3()=='a'")])
+			.add([self.count("x=>x.x1()=='p' && x.x2()=='a' && x.x3()=='a'"), self.count("x=>x.x1()=='a' && x.x2()=='a' && x.x3()=='a'")])
+			.add([self.count("x=>x.x1()=='p' && x.x2()=='a' && x.x3()=='p'"), self.count("x=>x.x1()=='a' && x.x2()=='a' && x.x3()=='p'")])
+			.add([self.count("x=>x.x1()=='p' && x.x2()=='p' && x.x3()=='a'"), self.count("x=>x.x1()=='a' && x.x2()=='p' && x.x3()=='a'")])
+			.add([self.count("x=>x.x1()=='p' && x.x2()=='p' && x.x3()=='p'"), self.count("x=>x.x1()=='a' && x.x2()=='p' && x.x3()=='p'")])
+			.add([self.count("x=>x.x2()=='p'"), self.count("x=>x.x2()=='a'")])
+			.add([self.count("x=>x.x3()=='p'"), self.count("x=>x.x3()=='a'")])
 			.build()
 			.get();
 		return score;

@@ -33,13 +33,12 @@ public class Kutato {
 		
 		/**
 		 * Adds beta to compute.
-		 * @param r_i The number of values for the i-th variable.
 		 * @param N_ijk The count of the i-th variable in the k-th state
 		 * with the parents in the j-th state.
 		 * @return {@link KutatoBuilder}.
 		 */
-		public KutatoBuilder add(int r_i, int... N_ijk) {
-			betas.add(new KutatoBeta(r_i, N_ijk));
+		public KutatoBuilder add(int... N_ijk) {
+			betas.add(new KutatoBeta(N_ijk));
 			return this;
 		}
 		
@@ -59,16 +58,17 @@ public class Kutato {
 	public static class KutatoBeta {
 		private int r_i;
 		private int[] N_ijk;
+		private int N_ij;
 		
 		/**
 		 * Constructor.
-		 * @param r_i Number of values.
 		 * @param N_ijk Count of the i-th variable in the
 		 * k-th state and its parents in the j-th state.
 		 */
-		public KutatoBeta(int r_i, int... N_ijk) {
-			this.r_i = r_i;
+		public KutatoBeta(int... N_ijk) {
 			this.N_ijk = N_ijk;
+			this.r_i = N_ijk.length;
+			this.N_ij = sum(N_ijk);
 		}
 		
 		/**
@@ -76,7 +76,6 @@ public class Kutato {
 		 * @return Value.
 		 */
 		public double get() {
-			int N_ij = sum(N_ijk);
 			double score = (new LogGammaRatio(r_i, N_ij + r_i)).get();
 			for(int n_ijk : N_ijk) {
 				score += (new LogGamma(n_ijk+1)).get();

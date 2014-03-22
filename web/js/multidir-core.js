@@ -11,8 +11,8 @@ multidir.sum = function(values) {
 function KutatoBuilder() {
 	this.betas = new Array();
 };
-KutatoBuilder.prototype.add = function(r_i, N_ijk) {
-	this.betas.push(new KutatoBeta(r_i, N_ijk));
+KutatoBuilder.prototype.add = function(N_ijk) {
+	this.betas.push(new KutatoBeta(N_ijk));
 	return this;
 };
 KutatoBuilder.prototype.build = function() {
@@ -40,13 +40,13 @@ BayesDirBuilder.prototype.build = function() {
 	return bayesDir;
 };
 
-function KutatoBeta(r_i, N_ijk) {
-	this.r_i = r_i;
+function KutatoBeta(N_ijk) {
 	this.N_ijk = N_ijk;
+	this.r_i = N_ijk.length;
+	this.N_ij = multidir.sum(this.N_ijk);
 };
 KutatoBeta.prototype.get = function() {
-	var N_ij = multidir.sum(this.N_ijk);
-	var score = (new LogGammaRatio(this.r_i, N_ij + this.r_i)).get();
+	var score = (new LogGammaRatio(this.r_i, this.N_ij + this.r_i)).get();
 	for(var i=0; i < this.N_ijk.length; i++) {
 		score += (new LogGamma(this.N_ijk[i] + 1)).get();
 	}
