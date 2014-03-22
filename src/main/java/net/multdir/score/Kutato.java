@@ -12,7 +12,7 @@ import net.multdir.log.LogGammaRatio;
  * Kutato2 (K2) Bayesian scoring function.
  *
  */
-public class Kutato {
+public class Kutato implements ScoringFunc {
 
 	/**
 	 * {@link Kutato} builder.

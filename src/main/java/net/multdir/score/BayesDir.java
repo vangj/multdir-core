@@ -12,7 +12,7 @@ import net.multdir.log.LogGammaRatio;
  * Bayesian Dirichlet (BD) scoring function.
  *
  */
-public class BayesDir {
+public class BayesDir implements ScoringFunc {
 	
 	/**
 	 * Builder for {@link BayesDir}.
