@@ -23,11 +23,12 @@ var bs3 = (new KutatoBuilder())
 			.build()
 			.get();		
 var bs4 = (new KutatoBuilder())
-			.add([2,3])
-			.add([4,1])
+			.add([1,3])
 			.add([0,1])
+			.add([0,0])
 			.add([4,1])
-			.add([1,1])
+			.add([5,5])
+			.add([6,4])
 			.build()
 			.get();		
 console.log(bs1 + ", " + bs2 + ", " + bs3 + ", " + bs4);

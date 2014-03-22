@@ -21,7 +21,7 @@ public class LogGamma {
 	 * @param x Positive integer.
 	 */
 	public LogGamma(int x) {
-		checkArgument(x > 0, "Cannot compute a negative value.");
+		checkArgument(x >= 0, "Cannot compute a negative value. ");
 		this.x = x - 1;
 	}
 	

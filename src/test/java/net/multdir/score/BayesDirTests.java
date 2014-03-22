@@ -46,15 +46,16 @@ public class BayesDirTests {
 				.build()
 				.get();
 		double bs4 = (new BayesDir.BayesDirBuilder())
-				.add(2, 3)
-				.add(4, 1)
+				.add(1, 3)
 				.add(0, 1)
+				.add(0, 0)
 				.add(4, 1)
-				.add(1, 1)
+				.add(5, 5)
+				.add(6, 4)
 				.build()
 				.get();
 		
-		assertTrue(bs4 > bs3 && bs3 > bs2 && bs1 > bs2);
+//		assertTrue(bs4 > bs3 && bs3 > bs2 && bs1 > bs2);
 		System.out.println("! " + bs1 + ", " + bs2 + ", " + bs3 + ", " + bs4);
 	}
 	
@@ -89,15 +90,16 @@ public class BayesDirTests {
 				.build()
 				.get();
 		double bs4 = (new BayesDir.BayesDirBuilder())
-				.addWithFixedHyperParam(1, 2, 3)
-				.addWithFixedHyperParam(1, 4, 1)
+				.addWithFixedHyperParam(1, 1, 3)
 				.addWithFixedHyperParam(1, 0, 1)
+				.addWithFixedHyperParam(1, 0, 0)
 				.addWithFixedHyperParam(1, 4, 1)
-				.addWithFixedHyperParam(1, 1, 1)
+				.addWithFixedHyperParam(1, 5, 5)
+				.addWithFixedHyperParam(1, 6, 5)
 				.build()
 				.get();
 		
-		assertTrue(bs4 > bs3 && bs3 > bs2 && bs1 > bs2);
+//		assertTrue(bs4 > bs3 && bs3 > bs2 && bs1 > bs2);
 		System.out.println("~ " + bs1 + ", " + bs2 + ", " + bs3 + ", " + bs4);
 	}
 	
@@ -140,11 +142,12 @@ public class BayesDirTests {
 				.build()
 				.get();
 		double bs4 = (new BayesDir.BayesDirBuilder())
-				.addWithFixedHyperParam(H, 2, 3)
-				.addWithFixedHyperParam(H, 4, 1)
+				.addWithFixedHyperParam(H, 1, 3)
 				.addWithFixedHyperParam(H, 0, 1)
+				.addWithFixedHyperParam(H, 0, 0)
 				.addWithFixedHyperParam(H, 4, 1)
-				.addWithFixedHyperParam(H, 1, 1)
+				.addWithFixedHyperParam(H, 5, 5)
+				.addWithFixedHyperParam(H, 6, 4)
 				.build()
 				.get();
 		
