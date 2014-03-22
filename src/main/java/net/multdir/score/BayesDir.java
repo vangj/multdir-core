@@ -106,7 +106,7 @@ public class BayesDir {
 		 * @param N_ijk Counts for the i-th variable in the k-th state
 		 * with the parents in the j-th state.
 		 */
-		public Beta(int[] N_ijk) {
+		public Beta(int... N_ijk) {
 			this.N_ijk = N_ijk;
 		}
 		
