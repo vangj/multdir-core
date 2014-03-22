@@ -8,7 +8,7 @@ import net.multdir.log.LogGammaRatio;
  * Beta function for {@link Kutato}.
  *
  */
-public class KutatoBeta implements ScoringFunc {
+public class KutatoBeta implements BetaFunc {
 
 	private int r_i;
 	private int[] N_ijk;

@@ -1,12 +1,7 @@
 package net.multdir.score;
 
-import static net.multdir.util.Util.sum;
-
 import java.util.ArrayList;
 import java.util.List;
-
-import net.multdir.log.LogGamma;
-import net.multdir.log.LogGammaRatio;
 
 /**
  * Kutato2 (K2) Bayesian scoring function.
@@ -19,7 +14,7 @@ public class Kutato implements ScoringFunc {
 	 *
 	 */
 	public static class KutatoBuilder {
-		private List<KutatoBeta> betas = new ArrayList<KutatoBeta>();
+		private List<BetaFunc> betas = new ArrayList<BetaFunc>();
 		
 		/**
 		 * Adds beta to compute.
@@ -51,7 +46,7 @@ public class Kutato implements ScoringFunc {
 		}
 	}
 	
-	private List<KutatoBeta> betas;
+	private List<BetaFunc> betas;
 	
 	private Kutato() { }
 	
@@ -68,7 +63,7 @@ public class Kutato implements ScoringFunc {
 			return Double.NEGATIVE_INFINITY;
 		
 		double sum = 0.0d;
-		for(KutatoBeta beta : betas) {
+		for(BetaFunc beta : betas) {
 			sum += beta.get();
 		}
 		return sum;

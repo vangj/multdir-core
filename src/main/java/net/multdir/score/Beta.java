@@ -8,7 +8,7 @@ import net.multdir.log.LogGammaRatio;
  * Beta for {@link BayesDir}.
  *
  */
-public class BayesDirBeta implements ScoringFunc {
+public class Beta implements BetaFunc {
 
 	private int[] N_ijk;
 	private int[] H_ijk;
@@ -21,7 +21,7 @@ public class BayesDirBeta implements ScoringFunc {
 	 * @param H_ijk Hyperparameters for the i-th variable in the k-th state
 	 * with the parents in the j-th state.
 	 */
-	public BayesDirBeta(int[] N_ijk, int[] H_ijk) {
+	public Beta(int[] N_ijk, int[] H_ijk) {
 		checkArgument(N_ijk.length == H_ijk.length, "Lengths of counts and hyperparameters must be the same.");
 		this.N_ijk = N_ijk;
 		this.H_ijk = H_ijk;
@@ -32,7 +32,7 @@ public class BayesDirBeta implements ScoringFunc {
 	 * @param N_ijk Counts for the i-th variable in the k-th state
 	 * with the parents in the j-th state.
 	 */
-	public BayesDirBeta(int... N_ijk) {
+	public Beta(int... N_ijk) {
 		this.N_ijk = N_ijk;
 	}
 	
@@ -43,7 +43,7 @@ public class BayesDirBeta implements ScoringFunc {
 	 * @param H A single hyperparameter to be used
 	 * for all counts.
 	 */
-	public BayesDirBeta(int[] N_ijk, int H) {
+	public Beta(int[] N_ijk, int H) {
 		this.N_ijk = N_ijk;
 		this.H = H;
 	}

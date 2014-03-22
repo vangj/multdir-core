@@ -3,8 +3,6 @@ package net.multdir.score;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.google.common.annotations.Beta;
-
 /**
  * Bayesian Dirichlet (BD) scoring function.
  *
@@ -16,14 +14,14 @@ public class BayesDir implements ScoringFunc {
 	 *
 	 */
 	public static class BayesDirBuilder {
-		private List<BayesDirBeta> betas = new ArrayList<BayesDirBeta>();
+		private List<BetaFunc> betas = new ArrayList<BetaFunc>();
 		
 		/**
 		 * Adds a {@link Beta} to compute.
 		 * @param beta {@link Beta}.
 		 * @return {@link BayesDirBuilder}.
 		 */
-		public BayesDirBuilder add(BayesDirBeta beta) {
+		public BayesDirBuilder add(Beta beta) {
 			betas.add(beta);
 			return this;
 		}
@@ -37,7 +35,7 @@ public class BayesDir implements ScoringFunc {
 		 * @return {@link BayesDirBuilder}.
 		 */
 		public BayesDirBuilder add(int[] N_ijk, int[] H_ijk) {
-			betas.add(new BayesDirBeta(N_ijk, H_ijk));
+			betas.add(new Beta(N_ijk, H_ijk));
 			return this;
 		}
 		
@@ -49,7 +47,7 @@ public class BayesDir implements ScoringFunc {
 		 * @return {@link BayesDirBuilder}.
 		 */
 		public BayesDirBuilder add(int... N_ijk) {
-			betas.add(new BayesDirBeta(N_ijk));
+			betas.add(new Beta(N_ijk));
 			return this;
 		}
 		
@@ -63,7 +61,7 @@ public class BayesDir implements ScoringFunc {
 		 * @return {@link BayesDirBuilder}.
 		 */
 		public BayesDirBuilder addWithFixedHyperParam(int H, int... N_ijk) {
-			betas.add(new BayesDirBeta(N_ijk, H));
+			betas.add(new Beta(N_ijk, H));
 			return this;
 		}
 		
@@ -76,7 +74,7 @@ public class BayesDir implements ScoringFunc {
 		}
 	}
 	
-	private List<BayesDirBeta> betas;
+	private List<BetaFunc> betas;
 	
 	private BayesDir() { }
 	
@@ -93,7 +91,7 @@ public class BayesDir implements ScoringFunc {
 			return Double.NEGATIVE_INFINITY;
 		
 		double sum = 0.0d;
-		for(BayesDirBeta beta : betas) {
+		for(ScoringFunc beta : betas) {
 			sum += beta.get();
 		}
 		return sum;
