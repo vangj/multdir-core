@@ -1,0 +1,93 @@
+<html>
+<head>
+	<title>Demo Using MultiDir Library</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet" />
+	<style type="text/css">
+		.field {
+			width: 100px;
+			float: left;
+		}
+		div.break {
+			clear: both;
+		}
+		div.float-left {
+			float: left;
+		}
+		div.graph {
+			padding: 5px;
+			margin: 5px;
+			width: 150px;
+		}
+	</style>
+</head>
+<body>
+<h1>Demo Using MultiDir Library</h1>
+
+<div style="width:1000px">
+	<div class="float-left">
+		<button type="button" class="btn btn-default btn-sm"
+			data-bind="click: $root.addRecord">
+			<span class="glyphicon glyphicon-plus"></span> Add
+		</button>
+		
+		<div data-bind="foreach: records">
+			<div class="field">
+				<select data-bind="options: $root.valueOptions, value: x1, event: { change: $root.dataModified}" 
+					class="form-control input-sm"></select>
+			</div>
+			<div class="field">
+				<select data-bind="options: $root.valueOptions, value: x2, event: { change: $root.dataModified}" 
+					class="form-control input-sm"></select>
+			</div>
+			<div class="field">
+				<select data-bind="options: $root.valueOptions, value: x3, event: { change: $root.dataModified}" 
+					class="form-control input-sm"></select>
+			</div>
+			<div class="break"></div>
+		</div>
+	</div>
+	<div>
+		<div>
+			<div class="float-left graph">
+				<div>BS1</div>
+				<div>X1 &#8594; X2 &#8594; X3</div>
+				<div data-bind="text: $root.score1"></div>
+			</div>
+			<div class="float-left graph">
+				<div>BS2</div>
+				<div>X2 &#8592; X1 &#8594; X3</div>
+				<div data-bind="text: $root.score2"></div>
+			</div>
+			<div class="float-left graph">
+				<div>BS3</div>
+				<div>X1 &#8592; X2 &#8592; X3</div>
+				<div data-bind="text: $root.score3"></div>
+			</div>
+			<div class="float-left graph">
+				<div>BS4</div>
+				<div>X2 &#8594; X1 &#8592; X3</div>
+				<div data-bind="text: $root.score4"></div>
+			</div>
+		</div>
+		<div>
+			<div id="chart">
+				<svg style="height:300px; width:500px;"></svg>
+			</div>
+		</div>
+	</div>
+	<div>
+			$$P(B_S,D) = \prod_{i=1}^{n} \prod_{j=1}^{q_i} \left( \frac{\Gamma(N_{ij}^{'})}{\Gamma(N_{ij}^{'} + N_{ij})} \prod_{k=1}^{r_i} \frac{\Gamma(N_{ijk}^{'} + N_{ijk})}{\Gamma(N_{ijk}^{'})} \right)$$
+	</div>
+</div>
+
+<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jslinq.min.js"></script>
+<script type="text/javascript" src="js/d3-3.4.3.min.js"></script>
+<script type="text/javascript" src="js/nv.d3.min.js"></script>
+<script type="text/javascript" src="js/knockout-3.1.0.min.js"></script>
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="js/multidir-core.js"></script>
+<script type="text/javascript" src="js/multidir-ui.js"></script>
+</body>
+</html>
