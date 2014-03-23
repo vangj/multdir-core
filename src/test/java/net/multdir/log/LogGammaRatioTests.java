@@ -6,8 +6,15 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+/**
+ * {@link LogGammaRatio} tests.
+ *
+ */
 public class LogGammaRatioTests {
 
+	/**
+	 * Tests computation.
+	 */
 	@Test
 	public void test() {
 		double num = Math.log(3 * 2 * 1); //T(4) = 3!
@@ -21,6 +28,9 @@ public class LogGammaRatioTests {
 		assertEquals(expected, actual, 0.00001d);
 	}
 	
+	/**
+	 * Tests computation against 4 models.
+	 */
 	@Test
 	public void testCooper() {
 		double s1 = getScore1();
@@ -32,7 +42,7 @@ public class LogGammaRatioTests {
 		assertTrue(s4 > s3 && s3 > s2 && s1 > s2);
 	}
 	
-	public double getScore1() {
+	private double getScore1() {
 		// X1 -> X2 -> X3 figure (1) or B_S1
 		double s1 = compute(2, 5, 5);
 		double s2 = compute(2, 1, 4);
@@ -43,7 +53,7 @@ public class LogGammaRatioTests {
 		return score;
 	}
 	
-	public double getScore2() {
+	private double getScore2() {
 		// X2 <- X1 -> X3 figure (2) or B_S2
 		double s1 = compute(2, 5, 5); //x1
 		double s2 = compute(2, 1, 4); //x2
@@ -54,7 +64,7 @@ public class LogGammaRatioTests {
 		return score;
 	}
 	
-	public double getScore3() {
+	private double getScore3() {
 		// X1 <- X2 <- X3  B_S2
 		double s1 = compute(2, 1, 4); //x1
 		double s2 = compute(2, 4, 1);
@@ -65,7 +75,7 @@ public class LogGammaRatioTests {
 		return score;
 	}
 	
-	public double getScore4() {
+	private double getScore4() {
 		// X2 -> X1 <- X3
 		double s1 = compute(2, 2, 3); //x2
 		double s2 = compute(2, 4, 1); //x3
@@ -77,7 +87,7 @@ public class LogGammaRatioTests {
 		return score;
 	}
 	
-	public double compute(int r_i, int... N_ijk) {
+	private double compute(int r_i, int... N_ijk) {
 		int N_ij = sum(N_ijk);
 		double score = (new LogGammaRatio(r_i, N_ij + r_i)).get();
 		for(int n_ijk : N_ijk) {

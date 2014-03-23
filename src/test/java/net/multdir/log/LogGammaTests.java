@@ -5,8 +5,15 @@ import net.multdir.log.LogGamma;
 
 import org.junit.Test;
 
+/**
+ * {@link LogGamma} tests.
+ *
+ */
 public class LogGammaTests {
 
+	/**
+	 * Tests log gamma computation.
+	 */
 	@Test
 	public void test() {
 		double expected = Math.log(3 * 2 * 1); //T(4) = 3!
