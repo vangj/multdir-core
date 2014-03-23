@@ -1,7 +1,5 @@
 package net.multdir.score;
 
-import static org.junit.Assert.assertTrue;
-
 import org.junit.Test;
 
 /**
@@ -21,7 +19,7 @@ public class BayesDirTests {
 	 */
 	@Test
 	public void test() {
-		double bs1 = (new BayesDir.BayesDirBuilder())
+		double bs1 = (new BayesianDirchletBuilder())
 				.add(5, 5)
 				.add(1, 4)
 				.add(4, 1)
@@ -29,7 +27,7 @@ public class BayesDirTests {
 				.add(4, 1)
 				.build()
 				.get();
-		double bs2 = (new BayesDir.BayesDirBuilder())
+		double bs2 = (new BayesianDirchletBuilder())
 				.add(5, 5)
 				.add(1, 4)
 				.add(4, 1)
@@ -37,7 +35,7 @@ public class BayesDirTests {
 				.add(4, 1)
 				.build()
 				.get();
-		double bs3 = (new BayesDir.BayesDirBuilder())
+		double bs3 = (new BayesianDirchletBuilder())
 				.add(1, 4)
 				.add(4, 1)
 				.add(0, 4)
@@ -45,7 +43,7 @@ public class BayesDirTests {
 				.add(6, 4)
 				.build()
 				.get();
-		double bs4 = (new BayesDir.BayesDirBuilder())
+		double bs4 = (new BayesianDirchletBuilder())
 				.add(1, 3)
 				.add(0, 1)
 				.add(0, 0)
@@ -65,7 +63,7 @@ public class BayesDirTests {
 	 */
 	@Test
 	public void testAddWithFixedHyperParam() {
-		double bs1 = (new BayesDir.BayesDirBuilder())
+		double bs1 = (new BayesianDirchletBuilder())
 				.addWithFixedHyperParam(1, 5, 5)
 				.addWithFixedHyperParam(1, 1, 4)
 				.addWithFixedHyperParam(1, 4, 1)
@@ -73,7 +71,7 @@ public class BayesDirTests {
 				.addWithFixedHyperParam(1, 4, 1)
 				.build()
 				.get();
-		double bs2 = (new BayesDir.BayesDirBuilder())
+		double bs2 = (new BayesianDirchletBuilder())
 				.addWithFixedHyperParam(1, 5, 5)
 				.addWithFixedHyperParam(1, 1, 4)
 				.addWithFixedHyperParam(1, 4, 1)
@@ -81,7 +79,7 @@ public class BayesDirTests {
 				.addWithFixedHyperParam(1, 4, 1)
 				.build()
 				.get();
-		double bs3 = (new BayesDir.BayesDirBuilder())
+		double bs3 = (new BayesianDirchletBuilder())
 				.addWithFixedHyperParam(1, 1, 4)
 				.addWithFixedHyperParam(1, 4, 1)
 				.addWithFixedHyperParam(1, 0, 4)
@@ -89,7 +87,7 @@ public class BayesDirTests {
 				.addWithFixedHyperParam(1, 6, 4)
 				.build()
 				.get();
-		double bs4 = (new BayesDir.BayesDirBuilder())
+		double bs4 = (new BayesianDirchletBuilder())
 				.addWithFixedHyperParam(1, 1, 3)
 				.addWithFixedHyperParam(1, 0, 1)
 				.addWithFixedHyperParam(1, 0, 0)
@@ -117,7 +115,7 @@ public class BayesDirTests {
 	}
 	
 	public void testAddWithFixedHyperParam(int H) {
-		double bs1 = (new BayesDir.BayesDirBuilder())
+		double bs1 = (new BayesianDirchletBuilder())
 				.addWithFixedHyperParam(H, 5, 5)
 				.addWithFixedHyperParam(H, 1, 4)
 				.addWithFixedHyperParam(H, 4, 1)
@@ -125,7 +123,7 @@ public class BayesDirTests {
 				.addWithFixedHyperParam(H, 4, 1)
 				.build()
 				.get();
-		double bs2 = (new BayesDir.BayesDirBuilder())
+		double bs2 = (new BayesianDirchletBuilder())
 				.addWithFixedHyperParam(H, 5, 5)
 				.addWithFixedHyperParam(H, 1, 4)
 				.addWithFixedHyperParam(H, 4, 1)
@@ -133,7 +131,7 @@ public class BayesDirTests {
 				.addWithFixedHyperParam(H, 4, 1)
 				.build()
 				.get();
-		double bs3 = (new BayesDir.BayesDirBuilder())
+		double bs3 = (new BayesianDirchletBuilder())
 				.addWithFixedHyperParam(H, 1, 4)
 				.addWithFixedHyperParam(H, 4, 1)
 				.addWithFixedHyperParam(H, 0, 4)
@@ -141,7 +139,7 @@ public class BayesDirTests {
 				.addWithFixedHyperParam(H, 6, 4)
 				.build()
 				.get();
-		double bs4 = (new BayesDir.BayesDirBuilder())
+		double bs4 = (new BayesianDirchletBuilder())
 				.addWithFixedHyperParam(H, 1, 3)
 				.addWithFixedHyperParam(H, 0, 1)
 				.addWithFixedHyperParam(H, 0, 0)

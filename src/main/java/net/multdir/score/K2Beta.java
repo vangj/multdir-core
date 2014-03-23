@@ -5,10 +5,10 @@ import net.multdir.log.LogGamma;
 import net.multdir.log.LogGammaRatio;
 
 /**
- * Beta function for {@link Kutato}.
+ * Beta function K2.
  *
  */
-public class KutatoBeta implements BetaFunc {
+public class K2Beta implements BetaFunc {
 
 	private int r_i;
 	private int[] N_ijk;
@@ -19,7 +19,7 @@ public class KutatoBeta implements BetaFunc {
 	 * @param N_ijk Count of the i-th variable in the
 	 * k-th state and its parents in the j-th state.
 	 */
-	public KutatoBeta(int... N_ijk) {
+	public K2Beta(int... N_ijk) {
 		this.N_ijk = N_ijk;
 		this.r_i = N_ijk.length;
 		this.N_ij = sum(N_ijk);
