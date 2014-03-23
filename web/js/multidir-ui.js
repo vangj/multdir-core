@@ -28,6 +28,8 @@ var Record = function(data) {
 var PageModel = function(data) {
 	var self = this;
 	self.valueOptions = ko.observableArray(["a","p"]);
+	self.valueMethods = ko.observableArray(["K2","BD"]);
+	self.method = ko.observable("BD");
 	self.records = ko.observableArray(ko.utils.arrayMap(data, function(record){ 
 		return new Record(record);
 	}));
@@ -38,53 +40,115 @@ var PageModel = function(data) {
 	}
 	
 	self.score1 = ko.computed(function() { 
-		var score = (new BayesianDirichletBuilder())
-			.addKutato([self.count("x=>x.x1()=='p'"), self.count("x=>x.x1()=='a'")])
-			.addKutato([self.count("x=>x.x2()=='p' && x.x1()=='a'"), self.count("x=>x.x2()=='a' && x.x1()=='a'")])
-			.addKutato([self.count("x=>x.x2()=='p' && x.x1()=='p'"), self.count("x=>x.x2()=='a' && x.x1()=='p'")])
-			.addKutato([self.count("x=>x.x3()=='p' && x.x2()=='a'"), self.count("x=>x.x3()=='a' && x.x2()=='a'")])
-			.addKutato([self.count("x=>x.x3()=='p' && x.x2()=='p'"), self.count("x=>x.x3()=='a' && x.x2()=='p'")])
-			.build()
-			.get();
+		var method = self.method();
+		var score;
+		
+		if("K2" == method) {
+			score = (new BayesianDirichletBuilder())
+				.addKutato([self.count("x=>x.x1()=='p'"), self.count("x=>x.x1()=='a'")])
+				.addKutato([self.count("x=>x.x2()=='p' && x.x1()=='a'"), self.count("x=>x.x2()=='a' && x.x1()=='a'")])
+				.addKutato([self.count("x=>x.x2()=='p' && x.x1()=='p'"), self.count("x=>x.x2()=='a' && x.x1()=='p'")])
+				.addKutato([self.count("x=>x.x3()=='p' && x.x2()=='a'"), self.count("x=>x.x3()=='a' && x.x2()=='a'")])
+				.addKutato([self.count("x=>x.x3()=='p' && x.x2()=='p'"), self.count("x=>x.x3()=='a' && x.x2()=='p'")])
+				.build()
+				.get();
+		} else {
+			score = (new BayesianDirichletBuilder())
+				.addCounts([self.count("x=>x.x1()=='p'"), self.count("x=>x.x1()=='a'")])
+				.addCounts([self.count("x=>x.x2()=='p' && x.x1()=='a'"), self.count("x=>x.x2()=='a' && x.x1()=='a'")])
+				.addCounts([self.count("x=>x.x2()=='p' && x.x1()=='p'"), self.count("x=>x.x2()=='a' && x.x1()=='p'")])
+				.addCounts([self.count("x=>x.x3()=='p' && x.x2()=='a'"), self.count("x=>x.x3()=='a' && x.x2()=='a'")])
+				.addCounts([self.count("x=>x.x3()=='p' && x.x2()=='p'"), self.count("x=>x.x3()=='a' && x.x2()=='p'")])
+				.build()
+				.get();
+		}
+		
 		return score;
 	});
 	
 	self.score2 = ko.computed(function() { 
-		var score = (new BayesianDirichletBuilder())
-			.addKutato([self.count("x=>x.x1()=='p'"), self.count("x=>x.x1()=='a'")])
-			.addKutato([self.count("x=>x.x2()=='p' && x.x1()=='a'"), self.count("x=>x.x2()=='a' && x.x1()=='a'")])
-			.addKutato([self.count("x=>x.x2()=='p' && x.x1()=='p'"), self.count("x=>x.x2()=='a' && x.x1()=='p'")])
-			.addKutato([self.count("x=>x.x3()=='p' && x.x1()=='a'"), self.count("x=>x.x3()=='a' && x.x1()=='a'")])
-			.addKutato([self.count("x=>x.x3()=='p' && x.x1()=='p'"), self.count("x=>x.x3()=='a' && x.x1()=='p'")])
-			.build()
-			.get();
+		var method = self.method();
+		var score;
+		
+		if("K2" == method) {
+			score = (new BayesianDirichletBuilder())
+				.addKutato([self.count("x=>x.x1()=='p'"), self.count("x=>x.x1()=='a'")])
+				.addKutato([self.count("x=>x.x2()=='p' && x.x1()=='a'"), self.count("x=>x.x2()=='a' && x.x1()=='a'")])
+				.addKutato([self.count("x=>x.x2()=='p' && x.x1()=='p'"), self.count("x=>x.x2()=='a' && x.x1()=='p'")])
+				.addKutato([self.count("x=>x.x3()=='p' && x.x1()=='a'"), self.count("x=>x.x3()=='a' && x.x1()=='a'")])
+				.addKutato([self.count("x=>x.x3()=='p' && x.x1()=='p'"), self.count("x=>x.x3()=='a' && x.x1()=='p'")])
+				.build()
+				.get();
+		} else {
+			score = (new BayesianDirichletBuilder())
+				.addCounts([self.count("x=>x.x1()=='p'"), self.count("x=>x.x1()=='a'")])
+				.addCounts([self.count("x=>x.x2()=='p' && x.x1()=='a'"), self.count("x=>x.x2()=='a' && x.x1()=='a'")])
+				.addCounts([self.count("x=>x.x2()=='p' && x.x1()=='p'"), self.count("x=>x.x2()=='a' && x.x1()=='p'")])
+				.addCounts([self.count("x=>x.x3()=='p' && x.x1()=='a'"), self.count("x=>x.x3()=='a' && x.x1()=='a'")])
+				.addCounts([self.count("x=>x.x3()=='p' && x.x1()=='p'"), self.count("x=>x.x3()=='a' && x.x1()=='p'")])
+				.build()
+				.get();
+		}
 		return score;
 	});
 	
 	self.score3 = ko.computed(function() { 
-		var score = (new BayesianDirichletBuilder())
-			.addKutato([self.count("x=>x.x1()=='p' && x.x2()=='a'"), self.count("x=>x.x1()=='a' && x.x2()=='a'")])
-			.addKutato([self.count("x=>x.x1()=='p' && x.x2()=='p'"), self.count("x=>x.x1()=='a' && x.x2()=='p'")])
-			.addKutato([self.count("x=>x.x2()=='p' && x.x3()=='a'"), self.count("x=>x.x2()=='a' && x.x3()=='a'")])
-			.addKutato([self.count("x=>x.x2()=='p' && x.x3()=='p'"), self.count("x=>x.x2()=='a' && x.x3()=='p'")])
-			.addKutato([self.count("x=>x.x3()=='p'"), self.count("x=>x.x3()=='a'")])
-			.build()
-			.get();
+		var method = self.method();
+		var score;
+		
+		if("K2" == method) {
+			score = (new BayesianDirichletBuilder())
+				.addKutato([self.count("x=>x.x1()=='p' && x.x2()=='a'"), self.count("x=>x.x1()=='a' && x.x2()=='a'")])
+				.addKutato([self.count("x=>x.x1()=='p' && x.x2()=='p'"), self.count("x=>x.x1()=='a' && x.x2()=='p'")])
+				.addKutato([self.count("x=>x.x2()=='p' && x.x3()=='a'"), self.count("x=>x.x2()=='a' && x.x3()=='a'")])
+				.addKutato([self.count("x=>x.x2()=='p' && x.x3()=='p'"), self.count("x=>x.x2()=='a' && x.x3()=='p'")])
+				.addKutato([self.count("x=>x.x3()=='p'"), self.count("x=>x.x3()=='a'")])
+				.build()
+				.get();
+		} else {
+			score = (new BayesianDirichletBuilder())
+				.addCounts([self.count("x=>x.x1()=='p' && x.x2()=='a'"), self.count("x=>x.x1()=='a' && x.x2()=='a'")])
+				.addCounts([self.count("x=>x.x1()=='p' && x.x2()=='p'"), self.count("x=>x.x1()=='a' && x.x2()=='p'")])
+				.addCounts([self.count("x=>x.x2()=='p' && x.x3()=='a'"), self.count("x=>x.x2()=='a' && x.x3()=='a'")])
+				.addCounts([self.count("x=>x.x2()=='p' && x.x3()=='p'"), self.count("x=>x.x2()=='a' && x.x3()=='p'")])
+				.addCounts([self.count("x=>x.x3()=='p'"), self.count("x=>x.x3()=='a'")])
+				.build()
+				.get();
+		}
 		return score;
 	});
 	
 	self.score4 = ko.computed(function() { 
-		var score = (new BayesianDirichletBuilder())
-			.addKutato([self.count("x=>x.x1()=='p' && x.x2()=='a' && x.x3()=='a'"), self.count("x=>x.x1()=='a' && x.x2()=='a' && x.x3()=='a'")])
-			.addKutato([self.count("x=>x.x1()=='p' && x.x2()=='a' && x.x3()=='p'"), self.count("x=>x.x1()=='a' && x.x2()=='a' && x.x3()=='p'")])
-			.addKutato([self.count("x=>x.x1()=='p' && x.x2()=='p' && x.x3()=='a'"), self.count("x=>x.x1()=='a' && x.x2()=='p' && x.x3()=='a'")])
-			.addKutato([self.count("x=>x.x1()=='p' && x.x2()=='p' && x.x3()=='p'"), self.count("x=>x.x1()=='a' && x.x2()=='p' && x.x3()=='p'")])
-			.addKutato([self.count("x=>x.x2()=='p'"), self.count("x=>x.x2()=='a'")])
-			.addKutato([self.count("x=>x.x3()=='p'"), self.count("x=>x.x3()=='a'")])
-			.build()
-			.get();
+		var method = self.method();
+		var score;
+		
+		if("K2" == method) {
+			score = (new BayesianDirichletBuilder())
+				.addKutato([self.count("x=>x.x1()=='p' && x.x2()=='a' && x.x3()=='a'"), self.count("x=>x.x1()=='a' && x.x2()=='a' && x.x3()=='a'")])
+				.addKutato([self.count("x=>x.x1()=='p' && x.x2()=='a' && x.x3()=='p'"), self.count("x=>x.x1()=='a' && x.x2()=='a' && x.x3()=='p'")])
+				.addKutato([self.count("x=>x.x1()=='p' && x.x2()=='p' && x.x3()=='a'"), self.count("x=>x.x1()=='a' && x.x2()=='p' && x.x3()=='a'")])
+				.addKutato([self.count("x=>x.x1()=='p' && x.x2()=='p' && x.x3()=='p'"), self.count("x=>x.x1()=='a' && x.x2()=='p' && x.x3()=='p'")])
+				.addKutato([self.count("x=>x.x2()=='p'"), self.count("x=>x.x2()=='a'")])
+				.addKutato([self.count("x=>x.x3()=='p'"), self.count("x=>x.x3()=='a'")])
+				.build()
+				.get();
+		} else {
+			score = (new BayesianDirichletBuilder())
+				.addCounts([self.count("x=>x.x1()=='p' && x.x2()=='a' && x.x3()=='a'"), self.count("x=>x.x1()=='a' && x.x2()=='a' && x.x3()=='a'")])
+				.addCounts([self.count("x=>x.x1()=='p' && x.x2()=='a' && x.x3()=='p'"), self.count("x=>x.x1()=='a' && x.x2()=='a' && x.x3()=='p'")])
+				.addCounts([self.count("x=>x.x1()=='p' && x.x2()=='p' && x.x3()=='a'"), self.count("x=>x.x1()=='a' && x.x2()=='p' && x.x3()=='a'")])
+				.addCounts([self.count("x=>x.x1()=='p' && x.x2()=='p' && x.x3()=='p'"), self.count("x=>x.x1()=='a' && x.x2()=='p' && x.x3()=='p'")])
+				.addCounts([self.count("x=>x.x2()=='p'"), self.count("x=>x.x2()=='a'")])
+				.addCounts([self.count("x=>x.x3()=='p'"), self.count("x=>x.x3()=='a'")])
+				.build()
+				.get();
+		}
 		return score;
 	});
+	
+	self.methodModified = function() {
+		self.updateChart();
+	}
 	
 	self.dataModified = function() {
 		self.updateChart();

@@ -24,12 +24,15 @@
 <h1>Demo Using MultiDir Library</h1>
 
 <div style="width:1000px">
-	<div class="float-left">
+	<div style="padding-bottom: 5px;">
+		Scoring Function:
+		<select data-bind="options: $root.valueMethods, value: $root.method, event: { change: $root.methodModified}"></select>
 		<button type="button" class="btn btn-default btn-sm"
 			data-bind="click: $root.addRecord">
-			<span class="glyphicon glyphicon-plus"></span> Add
+			<span class="glyphicon glyphicon-plus"></span> Add Random Record
 		</button>
-		
+	</div>
+	<div class="float-left">
 		<div data-bind="foreach: records">
 			<div class="field">
 				<select data-bind="options: $root.valueOptions, value: x1, event: { change: $root.dataModified}" 
