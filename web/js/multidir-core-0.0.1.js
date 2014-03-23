@@ -8,44 +8,35 @@ multidir.sum = function(values) {
 	return sum;
 };
 
-function KutatoBuilder() {
+function BayesianDirichletBuilder() {
 	this.betas = new Array();
 };
-KutatoBuilder.prototype.add = function(N_ijk) {
-	this.betas.push(new KutatoBeta(N_ijk));
+BayesianDirichletBuilder.prototype.addCounts = function(N_ijk) {
+	this.betas.push(new BdBeta(N_ijk, undefined, undefined));
 	return this;
 };
-KutatoBuilder.prototype.build = function() {
-	var kutato = new Kutato(this.betas);
-	return kutato;
+BayesianDirichletBuilder.prototype.addCountWithHyperparams = function(N_ijk, H_ijk) {
+	this.betas.push(new BdBeta(N_ijk, H_ijk, undefined));
+	return this;
+};
+BayesianDirichletBuilder.prototype.addCountsWithSingleHyperparam = function(N_ijk, H) {
+	this.betas.push(new BdBeta(N_ijk, undefined, H));
+	return this;
+};
+BayesianDirichletBuilder.prototype.addKutato = function(N_ijk) {
+	this.betas.push(new K2Beta(N_ijk));
+	return this;
+};
+BayesianDirichletBuilder.prototype.build = function() {
+	return new BayesianDirichlet(this.betas);
 };
 
-function BayesDirBuilder() {
-	this.betas = new Array();
-};
-BayesDirBuilder.prototype.addCounts = function(N_ijk) {
-	this.betas.push(new Beta(N_ijk, undefined, undefined));
-	return this;
-};
-BayesDirBuilder.prototype.addCountWithHyperparams = function(N_ijk, H_ijk) {
-	this.betas.push(new Beta(N_ijk, H_ijk, undefined));
-	return this;
-};
-BayesDirBuilder.prototype.addCountsWithSingleHyperparam = function(N_ijk, H) {
-	this.betas.push(new Beta(N_ijk, undefined, H));
-	return this;
-};
-BayesDirBuilder.prototype.build = function() {
-	var bayesDir = new BayesDir(this.betas);
-	return bayesDir;
-};
-
-function KutatoBeta(N_ijk) {
+function K2Beta(N_ijk) {
 	this.N_ijk = N_ijk;
 	this.r_i = N_ijk.length;
 	this.N_ij = multidir.sum(this.N_ijk);
 };
-KutatoBeta.prototype.get = function() {
+K2Beta.prototype.get = function() {
 	var score = (new LogGammaRatio(this.r_i, this.N_ij + this.r_i)).get();
 	for(var i=0; i < this.N_ijk.length; i++) {
 		score += (new LogGamma(this.N_ijk[i] + 1)).get();
@@ -53,12 +44,12 @@ KutatoBeta.prototype.get = function() {
 	return score;
 };
 
-function Beta(N_ijk, H_ijk, H) {
+function BdBeta(N_ijk, H_ijk, H) {
 	this.N_ijk = N_ijk;
 	this.H_ijk = H_ijk;
 	this.H = H;
 };
-Beta.prototype.get = function() {
+BdBeta.prototype.get = function() {
 	var N_ij = multidir.sum(this.N_ijk);
 	
 	var H_ij = this.N_ijk.length;
@@ -88,23 +79,10 @@ Beta.prototype.get = function() {
 	return score;
 }
 
-function Kutato(betas) {
+function BayesianDirichlet(betas) {
 	this.betas = betas;
 };
-Kutato.prototype.get = function() {
-	if(!this.betas || this.betas.length < 1)
-		return Number.NaN;
-	var sum = 0;
-	for(var i = 0; i < this.betas.length; i++) {
-		sum += this.betas[i].get();
-	}
-	return sum;
-};
-
-function BayesDir(betas) {
-	this.betas = betas;
-};
-BayesDir.prototype.get = function() {
+BayesianDirichlet.prototype.get = function() {
 	if(!this.betas || this.betas.length < 1)
 		return Number.NaN;
 	var sum = 0;
