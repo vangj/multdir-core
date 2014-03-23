@@ -41,7 +41,7 @@ public class KutatoTests {
 				.addKutato(4, 1)
 				.addKutato(0, 4)
 				.addKutato(5, 1)
-				.add(6, 4)
+				.addKutato(6, 4)
 				.build()
 				.get();
 		double bs4 = (new BayesianDirchletBuilder())
